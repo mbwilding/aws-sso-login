@@ -24,86 +24,86 @@ jobs:
           - os_name: FreeBSD-x86_64
             os: ubuntu-20.04
             target: x86_64-unknown-freebsd
-            bin: ${{ env.CRATE_NAME }}
-            name: ${{ env.CRATE_NAME }}-FreeBSD-x86_64.tar.gz
+            bin: aws-sso-login
+            name: aws-sso-login-FreeBSD-x86_64.tar.gz
             skip_tests: true
           - os_name: Linux-x86_64
             os: ubuntu-20.04
             target: x86_64-unknown-linux-musl
-            bin: ${{ env.CRATE_NAME }}
-            name: ${{ env.CRATE_NAME }}-Linux-x86_64-musl.tar.gz
+            bin: aws-sso-login
+            name: aws-sso-login-Linux-x86_64-musl.tar.gz
           - os_name: Linux-aarch64
             os: ubuntu-20.04
             target: aarch64-unknown-linux-musl
-            bin: ${{ env.CRATE_NAME }}
-            name: ${{ env.CRATE_NAME }}-Linux-aarch64-musl.tar.gz
+            bin: aws-sso-login
+            name: aws-sso-login-Linux-aarch64-musl.tar.gz
           - os_name: Linux-arm
             os: ubuntu-20.04
             target: arm-unknown-linux-musleabi
-            bin: ${{ env.CRATE_NAME }}
-            name: ${{ env.CRATE_NAME }}-Linux-arm-musl.tar.gz
+            bin: aws-sso-login
+            name: aws-sso-login-Linux-arm-musl.tar.gz
           - os_name: Linux-i686
             os: ubuntu-20.04
             target: i686-unknown-linux-musl
-            bin: ${{ env.CRATE_NAME }}
-            name: ${{ env.CRATE_NAME }}-Linux-i686-musl.tar.gz
+            bin: aws-sso-login
+            name: aws-sso-login-Linux-i686-musl.tar.gz
             skip_tests: true
           - os_name: Linux-powerpc
             os: ubuntu-20.04
             target: powerpc-unknown-linux-gnu
-            bin: ${{ env.CRATE_NAME }}
-            name: ${{ env.CRATE_NAME }}-Linux-powerpc-gnu.tar.gz
+            bin: aws-sso-login
+            name: aws-sso-login-Linux-powerpc-gnu.tar.gz
             skip_tests: true
           - os_name: Linux-powerpc64
             os: ubuntu-20.04
             target: powerpc64-unknown-linux-gnu
-            bin: ${{ env.CRATE_NAME }}
-            name: ${{ env.CRATE_NAME }}-Linux-powerpc64-gnu.tar.gz
+            bin: aws-sso-login
+            name: aws-sso-login-Linux-powerpc64-gnu.tar.gz
             skip_tests: true
           - os_name: Linux-powerpc64le
             os: ubuntu-20.04
             target: powerpc64le-unknown-linux-gnu
-            bin: ${{ env.CRATE_NAME }}
-            name: ${{ env.CRATE_NAME }}-Linux-powerpc64le.tar.gz
+            bin: aws-sso-login
+            name: aws-sso-login-Linux-powerpc64le.tar.gz
             skip_tests: true
           - os_name: Linux-riscv64
             os: ubuntu-20.04
             target: riscv64gc-unknown-linux-gnu
-            bin: ${{ env.CRATE_NAME }}
-            name: ${{ env.CRATE_NAME }}-Linux-riscv64gc-gnu.tar.gz
+            bin: aws-sso-login
+            name: aws-sso-login-Linux-riscv64gc-gnu.tar.gz
           - os_name: Linux-s390x
             os: ubuntu-20.04
             target: s390x-unknown-linux-gnu
-            bin: ${{ env.CRATE_NAME }}
-            name: ${{ env.CRATE_NAME }}-Linux-s390x-gnu.tar.gz
+            bin: aws-sso-login
+            name: aws-sso-login-Linux-s390x-gnu.tar.gz
             skip_tests: true
           - os_name: Windows-aarch64
             os: windows-latest
             target: aarch64-pc-windows-msvc
-            bin: ${{ env.CRATE_NAME }}.exe
-            name: ${{ env.CRATE_NAME }}-Windows-aarch64.zip
+            bin: aws-sso-login.exe
+            name: aws-sso-login-Windows-aarch64.zip
             skip_tests: true
           - os_name: Windows-i686
             os: windows-latest
             target: i686-pc-windows-msvc
-            bin: ${{ env.CRATE_NAME }}.exe
-            name: ${{ env.CRATE_NAME }}-Windows-i686.zip
+            bin: aws-sso-login.exe
+            name: aws-sso-login-Windows-i686.zip
             skip_tests: true
           - os_name: Windows-x86_64
             os: windows-latest
             target: x86_64-pc-windows-msvc
-            bin: ${{ env.CRATE_NAME }}.exe
-            name: ${{ env.CRATE_NAME }}-Windows-x86_64.zip
+            bin: aws-sso-login.exe
+            name: aws-sso-login-Windows-x86_64.zip
           - os_name: macOS-x86_64
             os: macOS-latest
             target: x86_64-apple-darwin
-            bin: ${{ env.CRATE_NAME }}
-            name: ${{ env.CRATE_NAME }}-Darwin-x86_64.tar.gz
+            bin: aws-sso-login
+            name: aws-sso-login-Darwin-x86_64.tar.gz
           - os_name: macOS-aarch64
             os: macOS-latest
             target: aarch64-apple-darwin
-            bin: ${{ env.CRATE_NAME }}
-            name: ${{ env.CRATE_NAME }}-Darwin-aarch64.tar.gz
+            bin: aws-sso-login
+            name: aws-sso-login-Darwin-aarch64.tar.gz
             skip_tests: true
         toolchain:
           - stable
@@ -151,8 +151,8 @@ jobs:
       - name: Publish release artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.CRATE_NAME }}-${{ matrix.platform.os_name }}
-          path: "${{ env.CRATE_NAME }}-*"
+          name: aws-sso-login-${{ matrix.platform.os_name }}
+          path: "aws-sso-login-*"
         if: matrix.toolchain == 'stable' && github.ref == 'refs/tags/test-release'
       - name: Generate SHA-256
         run: shasum -a 256 ${{ matrix.platform.name }}
@@ -165,6 +165,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           draft: true
-          files: "${{ env.CRATE_NAME }}-*"
+          files: "aws-sso-login-*"
           # body_path: Changes.md
         if: matrix.toolchain == 'stable' && startsWith( github.ref, 'refs/tags/v' )
