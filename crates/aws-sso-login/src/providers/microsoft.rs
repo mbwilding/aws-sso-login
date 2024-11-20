@@ -1,7 +1,7 @@
 use anyhow::Result;
 use dialoguer::{theme::ColorfulTheme, Input, Password};
 use headless_chrome::Tab;
-use log::debug;
+use log::{debug, trace};
 use std::{sync::Arc, time::Duration};
 
 pub(crate) fn page_router(tab: Arc<Tab>) -> Result<()> {
@@ -37,7 +37,7 @@ pub(crate) fn page_router(tab: Arc<Tab>) -> Result<()> {
 }
 
 fn email(tab: Arc<Tab>) -> Result<()> {
-    debug!("EMAIL");
+    trace!("EMAIL");
 
     debug!("Waiting and clicking on email input");
     let input = tab.wait_for_element(
@@ -65,7 +65,7 @@ fn email(tab: Arc<Tab>) -> Result<()> {
 }
 
 fn password(tab: Arc<Tab>) -> Result<()> {
-    debug!("PASSWORD");
+    trace!("PASSWORD");
 
     debug!("Waiting and clicking on password input");
     let input =
@@ -92,19 +92,19 @@ fn password(tab: Arc<Tab>) -> Result<()> {
 }
 
 fn mfa(tab: Arc<Tab>) -> Result<()> {
-    debug!("MFA");
+    trace!("MFA");
 
     debug!("Waiting for MFA code");
     let mfa_code = tab
         .wait_for_element("div#idRichContext_DisplaySign.displaySign.display-sign-height")?
         .get_inner_text()?;
-    println!("MFA code: {mfa_code}");
+    println!("MFA: {mfa_code}");
 
     Ok(())
 }
 
 fn remember(tab: Arc<Tab>) -> Result<()> {
-    debug!("REMEMBER");
+    trace!("REMEMBER");
 
     debug!("Waiting and clicking on don't ask again");
     tab.wait_for_element_with_custom_timeout(
